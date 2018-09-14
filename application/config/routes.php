@@ -56,7 +56,9 @@ $route['translate_uri_dashes'] = FALSE;
 
 $route['user-get-nama'] = 'user/get_nama';
 
-$route['login'] = 'login';
+$route['users-add'] = 'users/add';
+
+$route['login'] = 'login'; 
 $route['login-process'] = 'login/process';
 
 

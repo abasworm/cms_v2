@@ -21,14 +21,14 @@ class Login extends CI_Controller{
             unlink($c);
         }
 
-        if(!file_exists('./public/captcha/'.date('Ymd'))){
-            mkdir('./public/captcha/'.date('Ymd'));
+        if(!file_exists(FCPATH.'/public/captcha/'.date('Ymd'))){
+            mkdir(FCPATH.'/public/captcha/'.date('Ymd'));
         }
         
         $vals = array(
-            'img_path' => './public/captcha/'.date('Ymd').'/',
+            'img_path' => FCPATH.'/public/captcha/'.date('Ymd').'/',
             'img_url' => base_url() . 'public/captcha/'.date('Ymd').'/',
-            'font_path' => './public/font/cc.ttf',
+            'font_path' => FCPATH.'/public/font/cc.ttf',
             'word_length' => 4,
             'font_size' => 40,
             'img_width' => '200',
@@ -42,7 +42,7 @@ class Login extends CI_Controller{
             'ip_address' => $this->input->ip_address(),
             'word' => $cap['word']
         );
-        $this->session->set_flashdata('cap_del', './public/captcha/'.date('Ymd').'/' . $cap['time'] . '.jpg');
+        $this->session->set_flashdata('cap_del', FCPATH.'/public/captcha/'.date('Ymd').'/' . $cap['time'] . '.jpg');
         $this->session->set_userdata('captcha', $data_x);
         
 		//field must be random name
@@ -85,9 +85,9 @@ class Login extends CI_Controller{
         }
         
         $vals = array(
-            'img_path' => './public/captcha/'.date('Ymd').'/',
+            'img_path' => FCPATH.'/public/captcha/'.date('Ymd').'/',
             'img_url' => base_url() . 'public/captcha/'.date('Ymd').'/',
-            'font_path' => './public/font/cc.ttf',
+            'font_path' => FCPATH.'/public/font/cc.ttf',
             'word_length' => 4,
             'font_size' => 40,
             'img_width' => '200',
@@ -101,7 +101,7 @@ class Login extends CI_Controller{
             'ip_address' => $this->input->ip_address(),
             'word' => $cap['word']
         );
-        $this->session->set_userdata('cap_del', './public/captcha/'.date('Ymd').'/' . $cap['time'] . '.jpg');
+        $this->session->set_userdata('cap_del', FCPATH.'/public/captcha/'.date('Ymd').'/' . $cap['time'] . '.jpg');
         $this->session->set_userdata('captcha', $data_x);
 
         if(!is_null($cap['image'])){
