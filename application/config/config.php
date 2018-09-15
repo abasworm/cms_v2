@@ -381,9 +381,9 @@ $config['encryption_key'] = 'N4dhiF4';
 |
 */
 $config['sess_driver'] = 'files';
-$config['sess_cookie_name'] = 'cs@';
+$config['sess_cookie_name'] = 'cms2';
 $config['sess_expiration'] = 3600;
-$config['sess_save_path'] = "./session/";
+$config['sess_save_path'] = "./session/".date('Ymd');
 $config['sess_match_ip'] = FALSE;
 $config['sess_time_to_update'] = 300;
 $config['sess_regenerate_destroy'] = FALSE;

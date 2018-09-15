@@ -16,8 +16,9 @@
 				<div class="row">
 					<div class="col-md-12">
 						<form id='frm' method='POST' name='frm' action='<?=base_url('login-process')?>'>
+							<input type="hidden" id="csrf_name" value="<?=$this->security->get_csrf_token_name();?>"/>
+							<input type="hidden"id="csrf_hash" value="<?=$this->security->get_csrf_hash();?>"/>
 							<div id="msg">
-								
 							</div>
 							<div class="form-group">
 								<label class="form-control-label col-md-6">USERNAME</label>
@@ -71,6 +72,9 @@
 			var fpassword = $('#<?=$password;?>');
 			var fcaptcha = $('#<?=$fcaptcha;?>');
 
+			var fcsrf_name = $('#csrf_name');
+			var fcsrf_hash = $('#csrf_hash');
+
 			var captcha_image = $('#captcha_image');
 			var message = $('#msg');
 
@@ -79,13 +83,15 @@
 
 			function submit(){
 				$.ajax({
-					url: link_api('check_login'),
+					url: link_api('process'),
 					method: 'POST',
 					contentType: 'application/x-www-form-urlencoded',
 					dataType: 'json',
 					data:{
+						<?=$this->security->get_csrf_token_name();?> : fcsrf_hash.val(),
 						username : fusername.val(),
-						password : fpassword.val()
+						password : fpassword.val(),
+						captcha : fcaptcha.val()
 					},
 					complete:function(rs, ret){
 						var res = rs.responseJSON;
@@ -95,6 +101,7 @@
 						}else{
 							message.html("");
 							message.append('<div class="alert alert-danger" role="alert">'+res.message+'</div>');
+							refresh_captcha();
 						}
 					}
 				});
@@ -106,7 +113,9 @@
 					method: 'POST',
 					contentType: 'application/x-www-form-urlencoded',
 					dataType: 'json',
-					
+					data:{
+						<?=$this->security->get_csrf_token_name();?> : fcsrf_hash.val()
+					},
 					complete:function(rs, ret){
 						var res = rs.responseJSON;
 						if(res.status){

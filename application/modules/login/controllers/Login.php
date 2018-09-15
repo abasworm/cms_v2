@@ -21,12 +21,12 @@ class Login extends CI_Controller{
             unlink($c);
         }
 
-        if(!file_exists(FCPATH.'/public/captcha/'.date('Ymd'))){
-            mkdir(FCPATH.'/public/captcha/'.date('Ymd'));
+        if(!file_exists(FCPATH.'\\public\\captcha\\'.date('Ymd'))){
+            mkdir(FCPATH.'\\public\\captcha\\'.date('Ymd'));
         }
         
         $vals = array(
-            'img_path' => FCPATH.'/public/captcha/'.date('Ymd').'/',
+            'img_path' => FCPATH.'\\public\\captcha\\'.date('Ymd').'/',
             'img_url' => base_url() . 'public/captcha/'.date('Ymd').'/',
             'font_path' => FCPATH.'/public/font/cc.ttf',
             'word_length' => 4,
@@ -42,8 +42,8 @@ class Login extends CI_Controller{
             'ip_address' => $this->input->ip_address(),
             'word' => $cap['word']
         );
-        $this->session->set_flashdata('cap_del', FCPATH.'/public/captcha/'.date('Ymd').'/' . $cap['time'] . '.jpg');
-        $this->session->set_userdata('captcha', $data_x);
+        $this->session->set_flashdata('cap_del', FCPATH.'\\public\\captcha\\'.date('Ymd').'\\' . $cap['time'] . '.jpg');
+        $this->session->set_flashdata('captcha', $data_x);
         
 		//field must be random name
 		$fusername = ($this->encrypt_field)?random_string(30):'username';
@@ -85,7 +85,7 @@ class Login extends CI_Controller{
         }
         
         $vals = array(
-            'img_path' => FCPATH.'/public/captcha/'.date('Ymd').'/',
+            'img_path' => FCPATH.'\\public\\captcha\\'.date('Ymd').'/',
             'img_url' => base_url() . 'public/captcha/'.date('Ymd').'/',
             'font_path' => FCPATH.'/public/font/cc.ttf',
             'word_length' => 4,
@@ -101,8 +101,8 @@ class Login extends CI_Controller{
             'ip_address' => $this->input->ip_address(),
             'word' => $cap['word']
         );
-        $this->session->set_userdata('cap_del', FCPATH.'/public/captcha/'.date('Ymd').'/' . $cap['time'] . '.jpg');
-        $this->session->set_userdata('captcha', $data_x);
+        $this->session->set_flashdata('cap_del', FCPATH.'public\\captcha\\'.date('Ymd').'\\' . $cap['time'] . '.jpg');
+        $this->session->set_flashdata('captcha', $data_x);
 
         if(!is_null($cap['image'])){
         	$data = array(
@@ -129,12 +129,7 @@ class Login extends CI_Controller{
 		$fcaptcha = $this->session->userdata('fpassword');
 
 
-		$this->load->library('crypto');
-		$this->crypto->set_key('n4dhifh4');
-
-		$ps = $this->crypto->encrypt($password);
-		$this->mlog->insert($ps);
-		echo $ps;
+		
 	}
 
 }

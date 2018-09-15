@@ -15,4 +15,16 @@ class M_users extends CI_Model{
 
 		return $ret;
 	}
+
+	public function insert($data){
+		$ret = FALSE;
+
+		//exclude array to insert data
+		unset($data['confpassword']);
+		
+		//add date time
+		$data['create_date'] = date("Y-m-d H:i:s");
+		$rs = $this->db->insert('users',$data);
+		return $rs;
+	}
 }
